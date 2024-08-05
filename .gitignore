@@ -1,6 +1,7 @@
 .vscode
 pdm.lock
 config/
+/states/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
