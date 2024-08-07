@@ -19,4 +19,40 @@ def timestamp_to_datetime(
 
 
 def datetime_to_date_string(datetime: datetime, format: str) -> str:
+    """
+    datetime_to_date_string 將datetime依照format 輸出date_string
+
+    Args:
+        datetime (datetime): datetime obj
+        format (str): 日期格式
+
+    Returns:
+        str: 日期格式字串
+    """
     return datetime.strftime(format)
+
+
+def datetime_to_iso_date_string(datetime: datetime) -> str:
+    """
+    datetime_to_iso_date_string 將datetime 輸出成iso format格式的日期字串
+
+    Args:
+        datetime (datetime): datetime obj
+
+    Returns:
+        str: iso format格式的日期字串
+    """
+    return datetime.isoformat()
+
+
+def iso_date_string_to_datetime(iso_date_string: str) -> datetime:
+    """
+    iso_date_string_to_datetime iso format格式的日期字串輸出成datetime obj
+
+    Args:
+        iso_date_string (str): iso format格式的日期字串
+
+    Returns:
+        datetime: datetime obj
+    """
+    return datetime.fromisoformat(iso_date_string)
