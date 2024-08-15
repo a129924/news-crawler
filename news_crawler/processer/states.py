@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Literal, Union
 
@@ -41,7 +41,7 @@ class CrawlStateProcesser:
         except (FileNotFoundError, KeyError):
             return WebsiteCrawlState(
                 name=self.website_name,
-                last_start_time=datetime.now(),
+                last_start_time=datetime.now() - timedelta(days=1),
                 processed_items=set(),
             )
 
