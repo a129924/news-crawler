@@ -10,7 +10,7 @@ CrawlWebsite: TypeAlias = Literal["cynes"]
 class WebsiteCrawlState(TypedDict):
     name: CrawlWebsite
     last_start_time: Union[datetime, str]
-    processed_items: set[str]  # set[{news_title}{news_date}]
+    processed_items: Union[list[str], set[str]]  # set[{news_title}{news_date}]
 
 
 class CrawlStateProcesser:
@@ -56,7 +56,7 @@ class CrawlStateProcesser:
         Args:
             item_key (str): 爬取成功的key({news_title}{news_date})
         """
-        self.state["processed_items"].add(item_key)
+        self.state["processed_items"].add(item_key)  # type: ignore
 
     def is_item_processed(self, item_key: str) -> bool:
         """
@@ -83,8 +83,9 @@ class CrawlStateProcesser:
 
         self.state["last_start_time"] = success_or_error_time.isoformat()
 
-        if is_success:
-            self.state["processed_items"] = set()
+        self.state["processed_items"] = (
+            [] if is_success else list(self.state["processed_items"])
+        )
 
         write_json_file(
             self.state_fullpath.__str__(),
