@@ -40,24 +40,6 @@ class CnyesSpider(Spider):
 
             yield item
 
-        # try:
-        #     while True:
-        #         yield next(news_generator)
-
-        # except StopIteration as error:
-        #     state = error.value
-        #     next_page_url: Optional[str] = items.get("next_page_url", None)
-
-        #     if state["processing_complete"]:
-        #         self.logger.info("成功")
-
-        #         if next_page_url:
-        #             yield Request(
-        #                 url=urljoin(response.url, next_page_url), callback=self.parse
-        #             )
-
-        #     else:
-        #         # raise StopIteration(
-        #         #     f"已超過上一次的運行時間 '{datetime_to_date_string(last_start_time, '%Y%m%d %H%M')}'"
-        #         # )
-        #         self.logger.info(msg="已超過上一次的運行時間")
+        next_page_url: Optional[str] = items.get("next_page_url", None)
+        if next_page_url:
+            yield Request(url=urljoin(response.url, next_page_url), callback=self.parse)
