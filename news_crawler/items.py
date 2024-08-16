@@ -3,10 +3,12 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/items.html
 
-import scrapy
+
+from scrapy import Field, Item
 
 
-class NewsCrawlerItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class NewsItem(Item):
+    news_url = Field()  # BASE_URL/data.newsId
+    title = Field()  # data.title
+    content = Field()  # data.content
+    date = Field()  # timestamp_to_datetime(data.publishAt) -> date_string

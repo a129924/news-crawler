@@ -24,14 +24,14 @@ class CnyesSpider(Spider):
     def parse(
         self, response: HtmlResponse
     ) -> Generator[Union[Item, Request], None, None]:
-        from ..items import CnyesNewsItem
+        from ..items import NewsItem
         from ..utils._datetime import timestamp_to_datetime
         from ..utils._html import get_text
 
         items: dict[str, Any] = response.json()["items"]  # type: ignore
 
         for news in items["data"]:
-            item = CnyesNewsItem()
+            item = NewsItem()
 
             item["news_url"] = f'{self.base_url}/{news["newsId"]}'
             item["title"] = news["title"]

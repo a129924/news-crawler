@@ -4,7 +4,7 @@ from typing import Any
 
 from typing_extensions import override
 
-from ..items.cnyes import CnyesNewsItem
+from ..items import NewsItem
 from ..types.crawler_state import CrawlerState
 from ..utils._html import get_text
 from .base import WebSiteNewsBaseProcesser
@@ -21,7 +21,7 @@ class CnyesWebSiteNewsProcesser(WebSiteNewsBaseProcesser):
         last_start_time: datetime = datetime(
             year=2024, month=7, day=31, hour=0, minute=0, second=0
         ),
-    ) -> Generator[CnyesNewsItem, None, CrawlerState]:
+    ) -> Generator[NewsItem, None, CrawlerState]:
         from ..utils._datetime import datetime_to_date_string, timestamp_to_datetime
 
         processing_complete: bool = True
@@ -31,7 +31,7 @@ class CnyesWebSiteNewsProcesser(WebSiteNewsBaseProcesser):
             if (
                 publishAt := timestamp_to_datetime(news["publishAt"])
             ) >= last_start_time:
-                item = CnyesNewsItem()
+                item = NewsItem()
 
                 item["news_url"] = f'{cls.base_url}/{news["newsId"]}'
                 item["title"] = news["title"]
