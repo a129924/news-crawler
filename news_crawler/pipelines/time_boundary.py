@@ -72,10 +72,14 @@ class TimeBoundaryPipeline(BasePipeline):
         )
 
         if self.state_processer.is_item_processed(item_key=item_key):
+            self._is_sucess = True
+
             raise DropItem(f"Duplicate item found: {item['title']}")
 
         item["date"] = datetime_to_date_string(publish_at, format="%Y%m%d %H%M")
         self.state_processer.mark_item_processed(item_key=item_key)
+
+        self._is_sucess = True
 
         return item
 
