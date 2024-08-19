@@ -18,6 +18,10 @@ def timestamp_to_datetime(
     return datetime.fromtimestamp(timestamp, tz=time_zone)
 
 
+def datetime_to_timestamp(datetime: datetime) -> float:
+    return datetime.timestamp()
+
+
 def datetime_to_date_string(datetime: datetime, format: str) -> str:
     """
     datetime_to_date_string 將datetime依照format 輸出date_string
@@ -56,3 +60,7 @@ def iso_date_string_to_datetime(iso_date_string: str) -> datetime:
         datetime: datetime obj
     """
     return datetime.fromisoformat(iso_date_string)
+
+
+def date_string_to_datetime(date_string: str, format: str) -> datetime:
+    return datetime.strptime(date_string, format)
