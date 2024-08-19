@@ -27,11 +27,15 @@ class MoneyUdnSpider(Spider):
     start_urls = [f"{news_list_base_url}/{page}?_={get_timestamp_ms()}"]
 
     def _make_next_url(self):
-        return f"{self.news_list_base_url}/{self.page + 1}?_={get_timestamp_ms()}"
+        self.page = self.page + 1
+
+        return f"{self.news_list_base_url}/{self.page}?_={get_timestamp_ms()}"
 
     @override
     def parse(self, response: HtmlResponse) -> Generator[Request, None, None]:
         yield from self._parse_news_list(response)
+
+        yield Request(url=self._make_next_url(), callback=self.parse)
 
     def get_datetime(self, date_string: str) -> datetime:
         from ..utils._datetime import date_string_to_datetime
