@@ -18,6 +18,7 @@ def api_base_url(page: int) -> str:
 class UdnSpider(Spider):
     date_format = "%Y-%m-%d %H:%M"  # "2024-08-21 10:29"
     page = 0
+    allowed_categories: list[int]
 
     name = "udn"
     allowed_domains = ["udn.com"]

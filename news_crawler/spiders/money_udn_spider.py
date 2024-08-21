@@ -21,6 +21,7 @@ class MoneyUdnSpider(Spider):
     news_list_base_url = "https://money.udn.com/rank/ajax_newest/1001/0"
     refer_path = "?from=edn_newestlist_rank"
     page = 1
+    allowed_categories: list[int]
 
     name = "money_udn"
     allowed_domains = ["money.udn.com"]
