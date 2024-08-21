@@ -4,3 +4,4 @@
 # your spiders.
 from .cnyes_spider import *  # noqa: F403
 from .money_udn_spider import *  # noqa: F403
+from .udn_spider import *  # noqa: F403

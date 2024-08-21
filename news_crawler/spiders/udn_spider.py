@@ -8,6 +8,8 @@ from typing_extensions import override
 
 from ..items import NewsItem
 
+__all__ = ["UdnSpider"]
+
 
 def api_base_url(page: int) -> str:
     return f"https://udn.com/api/more?page={page}&id=&channelId=1"
