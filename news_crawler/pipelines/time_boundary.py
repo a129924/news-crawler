@@ -89,5 +89,6 @@ class TimeBoundaryPipeline(BasePipeline):
             is_success=self._is_sucess,
             success_or_error_time=self.start_time
             if self._is_sucess
+            or len(self.state_processer.state["processed_items"]) == 0
             else self.last_start_time,  # type: ignore
         )
