@@ -18,7 +18,18 @@ def api_base_url(page: int) -> str:
 class UdnSpider(Spider):
     date_format = "%Y-%m-%d %H:%M"  # "2024-08-21 10:29"
     page = 0
-    allowed_categories: list[int]
+    allowed_categories: set[int] = {
+        # 財經
+        7238,  # 財經焦點
+        7240,  # 科技產業
+        7239,  # 金融要聞
+        # 股市
+        7251,  # 股市要聞
+        123006,  # 存股族愛ETF
+        7253,  # 上市電子
+        7252,  # 上市公司
+        7254,  # 店頭未上市
+    }
 
     name = "udn"
     allowed_domains = ["udn.com"]

@@ -21,7 +21,27 @@ class MoneyUdnSpider(Spider):
     news_list_base_url = "https://money.udn.com/rank/ajax_newest/1001/0"
     refer_path = "?from=edn_newestlist_rank"
     page = 1
-    allowed_categories: list[int]
+    allowed_categories: set[int] = {
+        # 產業
+        5612,  # 產業熱點
+        11162,  # 科技產業
+        10871,  # 綜合產業
+        124092,  # AI IP大進擊
+        6808,  # 產業達人
+        # 要聞
+        7307,  # 政經焦點
+        12926,  # 今晨必讀,
+        123742,  # 深度報導
+        10869,  # 總經趨勢
+        122335,  # 經濟周報
+        8888,  # 大數字
+        # 證券
+        5607,  # 市場焦點
+        5710,  # 集中市場
+        11074,  # 櫃買動態
+        123397,  # 台股擂台
+        12509,  # AI 人機協作
+    }
 
     name = "money_udn"
     allowed_domains = ["money.udn.com"]
