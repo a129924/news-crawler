@@ -2,6 +2,7 @@
 #
 # Please refer to the documentation for information on how to create and manage
 # your spiders.
+from .cna_spider import *  # noqa: F403
 from .cnyes_spider import *  # noqa: F403
 from .money_udn_spider import *  # noqa: F403
 from .udn_spider import *  # noqa: F403
