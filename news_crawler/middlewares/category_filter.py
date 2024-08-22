@@ -1,14 +1,23 @@
 from typing import Optional
 
-from scrapy import Request, Spider
-from typing_extensions import override
+from scrapy import Request, Spider, signals
+from scrapy.crawler import Crawler
+from typing_extensions import Self
 
-from .base import BaseMiddleware
+# from .base import BaseMiddleware
 
 __all__ = ["CategoryFilterMiddleware"]
 
 
-class CategoryFilterMiddleware(BaseMiddleware):
+class CategoryFilterMiddleware:
+    @classmethod
+    def from_crawler(cls, crawler: Crawler) -> Self:
+        instance = cls()
+
+        crawler.signals.connect(instance.spider_opened, signal=signals.spider_opened)
+
+        return instance
+
     def _get_category_id(self, url: str) -> Optional[str]:
         from re import findall
 
@@ -17,7 +26,6 @@ class CategoryFilterMiddleware(BaseMiddleware):
         except IndexError:
             return None
 
-    @override
     def process_request(self, request: Request, spider: Spider) -> None:
         url: str = request.url
         category_id = self._get_category_id(url)
@@ -36,10 +44,9 @@ class CategoryFilterMiddleware(BaseMiddleware):
 
         raise IgnoreRequest(f"Category ID {category_id} is not allowed for URL: {url}")
 
-    @override
     def spider_opened(self, spider: Spider) -> None:
-        self.allowed_categories: Optional[list[int]] = getattr(
+        self.allowed_categories: Optional[set[int]] = getattr(
             spider, "allowed_categories", None
         )
 
-        return super().spider_opened(spider)
+        return None
