@@ -2,6 +2,7 @@
 pdm.lock
 config/
 /states/
+other/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
