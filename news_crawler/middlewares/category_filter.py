@@ -8,6 +8,12 @@ from typing_extensions import Self
 
 __all__ = ["CategoryFilterMiddleware"]
 
+category_filter_map = {
+    "udn": "story",
+    "money_udn": "story",
+    "cna": "news",
+}
+
 
 class CategoryFilterMiddleware:
     @classmethod
@@ -18,17 +24,17 @@ class CategoryFilterMiddleware:
 
         return instance
 
-    def _get_category_id(self, url: str) -> Optional[str]:
+    def _get_category_id(self, url: str, spider_name: str) -> Optional[str]:
         from re import findall
 
         try:
-            return findall(r"/story/(\d+)/", url)[0]
-        except IndexError:
+            return findall(rf"/{category_filter_map[spider_name]}/(\d+)/", url)[0]
+        except (IndexError, KeyError):
             return None
 
     def process_request(self, request: Request, spider: Spider) -> None:
         url: str = request.url
-        category_id = self._get_category_id(url)
+        category_id = self._get_category_id(url, spider.name)
 
         if (self.allowed_categories is None) or (category_id is None):
             return None
