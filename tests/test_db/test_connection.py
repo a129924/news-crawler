@@ -2,7 +2,7 @@ from dotenv import dotenv_values
 
 
 def test_connection():
-    from src.news_crawler.connect_db.connect_db import create_connection
+    from src.news_crawler.db.connect_db import create_connection
 
     config = dotenv_values("./env/db_config.env")
     connection = create_connection(
@@ -14,11 +14,11 @@ def test_connection():
 
 
 def test_insert_data():
-    from src.news_crawler.connect_db.connect_db import (
+    from src.news_crawler.db.connect_db import (
         create_connection,
         get_cursor,
-        insert_data,
     )
+    from src.news_crawler.db.execute import insert_data
 
     config = dotenv_values("./env/db_config.env")
 
@@ -42,11 +42,11 @@ def test_insert_data():
 
 
 def test_insert_many_data():
-    from src.news_crawler.connect_db.connect_db import (
+    from src.news_crawler.db.connect_db import (
         create_connection,
         get_cursor,
-        insert_many_data,
     )
+    from src.news_crawler.db.execute import insert_many_data
 
     config = dotenv_values("./env/db_config.env")
 

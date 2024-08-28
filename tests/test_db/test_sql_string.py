@@ -1,5 +1,5 @@
 def test_sql_string():
-    from src.news_crawler.connect_db.connect_db import create_insert_sql
+    from src.news_crawler.db.execute import create_insert_sql
 
     sql = create_insert_sql(
         "company", ["name", "english_name", "short_name", "market", "code"]
