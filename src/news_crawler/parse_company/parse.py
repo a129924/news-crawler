@@ -121,7 +121,9 @@ def parse_company(tr: pq) -> Company:
     )
 
 
-def main() -> Generator[Company, None, None]:
+def main(
+    filter_company_name: Iterable[str] = {"上市", "上櫃"},
+) -> Generator[Company, None, None]:
     """
     main
 
@@ -154,7 +156,7 @@ def main() -> Generator[Company, None, None]:
         raise ValueError(f"Failed to fetch URL: {response.status_code}")
 
     yield from parse_company_list(
-        html=response.text, filter_company_name=["上市", "上櫃"]
+        html=response.text, filter_company_name=filter_company_name
     )
 
 
