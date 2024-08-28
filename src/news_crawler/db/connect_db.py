@@ -43,7 +43,7 @@ def get_cursor(connection: Connection) -> Generator[Cursor, None, None]:
 
         yield cur
 
-        # connection.commit()
+        connection.commit()
 
     except Exception as e:
         connection.rollback()
