@@ -40,7 +40,6 @@ def get_cursor(connection: Connection) -> Generator[Cursor, None, None]:
     """
     try:
         cur = connection.cursor()
-        cur.execute("SET NAMES 'utf8';")
 
         yield cur
 
