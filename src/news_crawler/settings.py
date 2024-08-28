@@ -9,8 +9,8 @@
 
 BOT_NAME = "news_crawler"
 
-SPIDER_MODULES = ["news_crawler.spiders"]
-NEWSPIDER_MODULE = "news_crawler.spiders"
+SPIDER_MODULES = ["src.news_crawler.spiders"]
+NEWSPIDER_MODULE = "src.news_crawler.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -48,9 +48,9 @@ DOWNLOAD_DELAY = 3
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#     "news_crawler.middlewares.CategoryFilterMiddleware": 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+    "src.news_crawler.middlewares.CategoryFilterMiddleware": 543,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -61,8 +61,8 @@ DOWNLOAD_DELAY = 3
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    "news_crawler.pipelines.TimeBoundaryPipeline": 200,
-    "news_crawler.pipelines.CsvItemPipeline": 300,
+    "src.news_crawler.pipelines.TimeBoundaryPipeline": 200,
+    "src.news_crawler.pipelines.CsvItemPipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
