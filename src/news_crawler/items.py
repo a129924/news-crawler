@@ -11,4 +11,4 @@ class NewsItem(Item):
     news_url = Field()  # BASE_URL/data.newsId
     title = Field()  # data.title
     content = Field()  # data.content
-    date = Field()  # timestamp_to_datetime(data.publishAt) -> date_string
+    created_at = Field()  # timestamp_to_datetime(data.publishAt) -> date_string
