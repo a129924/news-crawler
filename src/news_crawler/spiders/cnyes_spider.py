@@ -30,13 +30,18 @@ class CnyesSpider(Spider):
 
         items: dict[str, Any] = response.json()["items"]  # type: ignore
 
+        if items is None:
+            from scrapy.exceptions import CloseSpider
+
+            raise CloseSpider("No items found")
+
         for news in items["data"]:
             item = NewsItem()
 
             item["news_url"] = f'{self.base_url}/{news["newsId"]}'
             item["title"] = news["title"]
             item["content"] = get_text(html_string=news["content"], element="p")
-            item["date"] = timestamp_to_datetime(news["publishAt"])
+            item["created_at"] = timestamp_to_datetime(news["publishAt"])
 
             yield item
 

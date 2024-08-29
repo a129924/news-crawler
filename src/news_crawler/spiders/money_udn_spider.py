@@ -81,7 +81,7 @@ class MoneyUdnSpider(Spider):
         item["news_url"] = response.url
         item["content"] = content
         item["title"] = response.css("#story_art_title::text").get().__str__()
-        item["date"] = self.get_datetime(
+        item["created_at"] = self.get_datetime(
             response.css("time.article-body__time::text").get().__str__()
         )
 

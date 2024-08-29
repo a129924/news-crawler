@@ -91,7 +91,7 @@ class UdnSpider(Spider):
                 callback=self._parse_news,
                 meta={
                     "title": news_item["title"],
-                    "date": news_item["time"]["date"],  # "2024-08-21 10:29"
+                    "created_at": news_item["time"]["date"],  # "2024-08-21 10:29"
                 },
             )
 
@@ -105,6 +105,8 @@ class UdnSpider(Spider):
         item["news_url"] = response.url
         item["title"] = response.meta["title"]
         item["content"] = self._process_news_content(response=response)
-        item["date"] = datetime.strptime(response.meta["date"], self.date_format)
+        item["created_at"] = datetime.strptime(
+            response.meta["created_at"], self.date_format
+        )
 
         yield item

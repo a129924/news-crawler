@@ -64,7 +64,7 @@ class CnaSpider(Spider):
                 method="GET",
                 meta={
                     "title": news_item["HeadLine"],
-                    "date": news_item["CreateTime"],
+                    "created_at": news_item["CreateTime"],
                 },
                 callback=self._parse_news,
                 headers=self.referer,
@@ -85,6 +85,8 @@ class CnaSpider(Spider):
         item["news_url"] = response.url
         item["title"] = response.meta["title"]
         item["content"] = self._process_news_content(response=response)
-        item["date"] = datetime.strptime(response.meta["date"], self.date_format)
+        item["created_at"] = datetime.strptime(
+            response.meta["created_at"], self.date_format
+        )
 
         yield item

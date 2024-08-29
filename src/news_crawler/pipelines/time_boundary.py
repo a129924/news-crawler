@@ -54,9 +54,8 @@ class TimeBoundaryPipeline(BasePipeline):
         :param spider: 當前處理 item 的爬蟲對象
         :return: 返回處理後的 item 或者 raise DropItem 異常
         """
-        from ..utils._datetime import datetime_to_date_string
 
-        publish_at: datetime = item["date"]
+        publish_at: datetime = item["created_at"]
 
         if publish_at < self.last_start_time:  # type: ignore
             # 如果 item 的時間早於上次啟動時間，關閉爬蟲
@@ -68,7 +67,7 @@ class TimeBoundaryPipeline(BasePipeline):
             raise DropItem("Reached the last start time threshold")
 
         item_key = self.state_processer.generate_item_key(
-            title=item["title"], date=item["date"]
+            title=item["title"], date=item["created_at"]
         )
 
         if self.state_processer.is_item_processed(item_key=item_key):
@@ -76,7 +75,7 @@ class TimeBoundaryPipeline(BasePipeline):
 
             raise DropItem(f"Duplicate item found: {item['title']}")
 
-        item["date"] = datetime_to_date_string(publish_at, format="%Y%m%d %H%M")
+        # item["date"] = datetime_to_date_string(publish_at, format="%Y%m%d %H%M")
         self.state_processer.mark_item_processed(item_key=item_key)
 
         self._is_sucess = True
