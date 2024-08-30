@@ -63,6 +63,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     "src.news_crawler.pipelines.TimeBoundaryPipeline": 200,
     "src.news_crawler.pipelines.CsvItemPipeline": 300,
+    "src.news_crawler.pipelines.DBItemPipeline": 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
